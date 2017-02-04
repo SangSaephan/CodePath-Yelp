@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kfl-Ia-3GK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kfl-Ia-3GK">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -127,7 +127,7 @@
                             <constraint firstAttribute="trailing" secondItem="kfl-Ia-3GK" secondAttribute="trailing" id="w6b-lP-rgS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="gjj-pT-FSo"/>
+                    <navigationItem key="navigationItem" id="gjj-pT-FSo"/>
                     <connections>
                         <outlet property="tableView" destination="kfl-Ia-3GK" id="p7l-LN-Q4J"/>
                     </connections>
@@ -141,9 +141,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XFN-vf-fEW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SrV-p4-XC9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SrV-p4-XC9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.73087890625000007" green="0.00018657168604698757" blue="0.018690660381876462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
