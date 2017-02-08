@@ -8,12 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     let searchBar = UISearchBar()
     var businesses: [Business]!
     var filteredBusinesses: [Business]!
+    var isMoreDataLoading = false
+    var loadingMoreView: InfiniteScrollActivityView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +25,22 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
+        // Set up Search Bar inside Navigation Bar
         searchBar.delegate = self
         searchBar.placeholder = "Search"
         navigationItem.titleView = searchBar
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        tableView.contentInset = insets
+        
+        Business.searchWithTerm(term: "Thai", limit: nil, offset: nil, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.filteredBusinesses = businesses
@@ -70,6 +83,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    // Filter results by text in search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == nil || searchText == "" {
             searchBar.endEditing(true)
@@ -80,8 +94,50 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.reloadData()
     }
     
+    // Dismiss keyboard
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(!isMoreDataLoading) {
+            
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                loadMoreData()
+            }
+        }
+    }
+    
+    func loadMoreData() {
+        Business.searchWithTerm(term: "Thai", limit: nil, offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            
+            self.isMoreDataLoading = false
+            
+            // Stop the loading indicator
+            self.loadingMoreView!.stopAnimating()
+            
+            self.businesses.append(contentsOf: businesses!)
+            self.filteredBusinesses = self.businesses
+            self.tableView.reloadData()
+            if let businesses = businesses {
+                for business in businesses {
+                    print(business.name!)
+                    print(business.address!)
+                }
+            }
+            
+        })
     }
     
 }
