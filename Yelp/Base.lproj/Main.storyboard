@@ -127,7 +127,15 @@
                             <constraint firstAttribute="trailing" secondItem="kfl-Ia-3GK" secondAttribute="trailing" id="w6b-lP-rgS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gjj-pT-FSo"/>
+                    <navigationItem key="navigationItem" id="gjj-pT-FSo">
+                        <barButtonItem key="rightBarButtonItem" image="location" id="zfl-dN-AZP">
+                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="5"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="0Xo-mx-yCn" kind="show" identifier="MapView" id="9zv-0n-WaB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="kfl-Ia-3GK" id="p7l-LN-Q4J"/>
                     </connections>
@@ -135,6 +143,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2727.1999999999998" y="357.57121439280365"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="PBP-bv-5cD">
+            <objects>
+                <viewController id="0Xo-mx-yCn" customClass="MapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qiM-Zn-NC3"/>
+                        <viewControllerLayoutGuide type="bottom" id="rwX-8q-SGR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s05-dJ-QiC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GT6-1A-1Em">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rwX-8q-SGR" firstAttribute="top" secondItem="GT6-1A-1Em" secondAttribute="bottom" id="1Vz-xi-0ip"/>
+                            <constraint firstAttribute="trailing" secondItem="GT6-1A-1Em" secondAttribute="trailing" id="JWg-PG-fVl"/>
+                            <constraint firstItem="GT6-1A-1Em" firstAttribute="top" secondItem="qiM-Zn-NC3" secondAttribute="bottom" id="Qah-bB-DqW"/>
+                            <constraint firstItem="GT6-1A-1Em" firstAttribute="leading" secondItem="s05-dJ-QiC" secondAttribute="leading" id="y2d-0b-Vec"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="GT6-1A-1Em" id="wJF-KO-yeO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kL9-vU-ng3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3469.5999999999999" y="357.57121439280365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QFp-LW-er9">
@@ -144,6 +184,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SrV-p4-XC9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.73087890625000007" green="0.00018657168604698757" blue="0.018690660381876462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -156,4 +197,7 @@
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="location" width="44" height="44"/>
+    </resources>
 </document>

@@ -140,4 +140,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MapView" {
+            let destination = segue.destination as! MapViewController
+            destination.business = self.businesses
+        }
+    }
+    
 }
