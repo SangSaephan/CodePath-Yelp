@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController {
 
@@ -17,7 +18,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
         goToLocation(location: centerLocation)
         
@@ -41,6 +42,7 @@ class MapViewController: UIViewController {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate.coordinate
                     annotation.title = title
+                    annotation.subtitle = address
                     self.mapView.addAnnotation(annotation)
                 }
             }

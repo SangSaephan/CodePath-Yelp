@@ -83,9 +83,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     // Filter results by text in search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == nil || searchText == "" {
+        if searchText == "" {
             searchBar.endEditing(true)
         }
         filteredBusinesses = searchText.isEmpty ? businesses : businesses.filter({
@@ -144,6 +148,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "MapView" {
             let destination = segue.destination as! MapViewController
             destination.business = self.businesses
+        }
+        
+        if segue.identifier == "DetailsView" {
+            let destination = segue.destination as! DetailsViewController
+            let indexPath = tableView.indexPath(for: sender as! BusinessCell)
+            
+            destination.business = filteredBusinesses[(indexPath?.row)!]
+            
         }
     }
     
